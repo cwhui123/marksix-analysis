@@ -1,4 +1,5 @@
-# Mark Six 最近20期分析（含特別號）
+# Mark Six 最近20期分析（免選檔案）
 
-- 統計 N1–N6 + 特別號
-- 同期兩號碼組合排序
+- 不需要 choose file
+- 直接讀取 repo 內的 data.xlsx
+- GitHub Pages 可直接使用

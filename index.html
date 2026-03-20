@@ -2,15 +2,16 @@
 <html lang="zh-HK">
 <head>
   <meta charset="UTF-8" />
-  <title>六合彩最近20期分析（含特別號）</title>
+  <title>六合彩最近20期分析（自動）</title>
   <script src="https://cdn.jsdelivr.net/npm/xlsx/dist/xlsx.full.min.js"></script>
   <script src="app.js" defer></script>
+  <style>body{font-family:Arial;padding:20px;}table{border-collapse:collapse;}th,td{border:1px solid #ccc;padding:6px 10px;text-align:center;}</style>
 </head>
 <body>
 <h1>六合彩最近20期分析（含特別號）</h1>
-<input type="file" id="fileInput" />
-<br><br>
-<button onclick="downloadExcel()">下載分析結果 (Excel)</button>
-<table border="1"><thead><tr><th>號碼</th><th>次數</th></tr></thead><tbody id="freq"></tbody></table>
+<p>（無需選擇檔案，直接使用 repo 內建資料）</p>
+<button onclick="downloadExcel()">下載 Excel 分析結果</button>
+<h2>號碼出現次數</h2>
+<table><thead><tr><th>號碼</th><th>次數</th></tr></thead><tbody id="freq"></tbody></table>
 </body>
 </html>
