@@ -1,6 +1,27 @@
 let latest20=[];
-document.getElementById("fileInput").addEventListener("change",e=>{const r=new FileReader();r.onload=ev=>{const wb=XLSX.read(ev.target.result,{type:"binary"});const ws=wb.Sheets[wb.SheetNames[0]];const data=XLSX.utils.sheet_to_json(ws);latest20=data.slice(-20);renderFrequency(latest20);};r.readAsBinaryString(e.target.files[0]);});
-function countNumbers(rows){const f={};rows.forEach(r=>{for(let i=1;i<=6;i++){const n=r[`N${i}`];f[n]=(f[n]||0)+1;}});return Object.entries(f).sort((a,b)=>b[1]-a[1]);}
-function renderFrequency(rows){const freq=countNumbers(rows);const tb=document.querySelector('#freqTable tbody');tb.innerHTML='';freq.forEach(([n,c])=>{tb.innerHTML+=`<tr><td>${n}</td><td>${c}</td></tr>`;});}
-function countPairs(rows){const pc={};rows.forEach(r=>{const nums=[];for(let i=1;i<=6;i++)nums.push(r[`N${i}`]);for(let i=0;i<nums.length;i++)for(let j=i+1;j<nums.length;j++){const k=[nums[i],nums[j]].sort((a,b)=>a-b).join('-');pc[k]=(pc[k]||0)+1;}});return Object.entries(pc).sort((a,b)=>b[1]-a[1]);}
-function downloadExcel(){const wb=XLSX.utils.book_new();const freq=countNumbers(latest20);XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([["號碼","出現次數"],...freq]),"號碼統計");const pairs=countPairs(latest20);XLSX.utils.book_append_sheet(wb,XLSX.utils.aoa_to_sheet([["號碼組合","出現次數"],...pairs]),"同期號碼組合");XLSX.writeFile(wb,"marksix_last20_analysis.xlsx");}
+document.getElementById("fileInput").addEventListener("change",e=>{
+  const r=new FileReader();
+  r.onload=ev=>{
+    const wb=XLSX.read(ev.target.result,{type:"binary"});
+    const ws=wb.Sheets[wb.SheetNames[0]];
+    const data=XLSX.utils.sheet_to_json(ws);
+    latest20=data.slice(-20);
+    render();
+  };
+  r.readAsBinaryString(e.target.files[0]);
+});
+function render(){
+  const freq={};
+  latest20.forEach(r=>{
+    const nums=[r.N1,r.N2,r.N3,r.N4,r.N5,r.N6,r['特別號']];
+    nums.forEach(n=>freq[n]=(freq[n]||0)+1);
+  });
+  const tbody=document.getElementById('freq');
+  tbody.innerHTML='';
+  Object.entries(freq).sort((a,b)=>b[1]-a[1]).forEach(([n,c])=>{
+    tbody.innerHTML+=`<tr><td>${n}</td><td>${c}</td></tr>`;
+  });
+}
+function downloadExcel(){
+  alert('請用 Python 版本匯出 Excel');
+}
